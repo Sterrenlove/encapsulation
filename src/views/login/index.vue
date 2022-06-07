@@ -33,7 +33,7 @@
           </div>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" class="loginBtn" @click="login">Login</el-button>
+          <el-button type="primary" class="loginBtn" @click="login()">Login</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -54,8 +54,8 @@ export default {
     }
     return {
       loginForm: {
-        username: "",
-        password: "",
+        username: "admin",
+        password: "123456",
         validCode: "",
       },
       loginFormRules: {
@@ -84,13 +84,13 @@ export default {
   methods: {
     // 登录
     login(){
-      this.$refs['loginForm'].validate(valid => {
-        if(valid){
-          this.$router.push({
-            path:'/mainPage'
-          })
-        }
-      })
+      // this.$refs['loginForm'].validate(valid => {
+      //   if(valid){
+         this.$message.success('登录成功');
+                    localStorage.setItem('ms_username', this.loginForm.username);
+                    this.$router.push('/');
+      //   }
+      // })
     },
     // 刷新验证码
     refreshIdentifyCode() {
