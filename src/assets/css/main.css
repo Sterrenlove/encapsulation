@@ -23,29 +23,23 @@ a {
 
 .content-box {
   height: calc(100vh - 60px);
-  -webkit-transition: left .3s ease-in-out;
-  transition: left .3s ease-in-out;
-  background: #f0f0f0;
-  padding: 10px;
+  overflow: hidden;
 }
 
 .content {
     width: auto;
-    height: 100%;
-    padding: 10px;
-    overflow-y: scroll;
+    height: calc(100% - 40px);
+    padding: 15px;
+    border-radius: 10px;
+    overflow: hidden;
     box-sizing: border-box;
+}
+.content::-webkit-scrollbar {
+  width: 0;
 }
 
 .content-collapse {
-    left: 65px;
-}
-
-.container {
-    padding: 30px;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    left: -65px;
 }
 
 .crumbs {

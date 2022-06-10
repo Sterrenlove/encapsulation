@@ -1,10 +1,14 @@
 <template>
   <div class="sidebar">
+    <div class="logo">
+      <img src="../assets/images/logo.png" alt="">
+      <span>Hi,小萝卜</span>
+    </div>
     <el-menu
       class="sidebar-el-menu"
       :default-active="onRoutes"
       :collapse="collapse"
-      text-color="#bfcbd9"
+      text-color="#333"
       active-text-color="#20a0ff"
       unique-opened
       router
@@ -58,42 +62,27 @@ export default {
       collapse: false,
       items: [
         {
-          icon: "el-icon-lx-home",
+          icon: "el-icon-house",
           index: "dashboard",
           title: "系统首页",
         },
         {
-          icon: "el-icon-lx-cascades",
+          icon: "el-icon-s-operation",
           index: "table",
           title: "基础表格",
         },
         {
-          icon: "el-icon-lx-copy",
-          index: "tabs",
-          title: "tab选项卡",
-        },
-        {
-          icon: "el-icon-lx-calendar",
+          icon: "el-icon-tickets",
           index: "3",
-          title: "表单相关",
+          title: "表单",
           subs: [
             {
               index: "form",
               title: "基本表单",
             },
             {
-              index: "3-2",
-              title: "三级菜单",
-              subs: [
-                {
-                  index: "editor",
-                  title: "富文本编辑器",
-                },
-                {
-                  index: "markdown",
-                  title: "markdown编辑器",
-                },
-              ],
+              index: "editor",
+              title: "富文本编辑器",
             },
             {
               index: "upload",
@@ -117,17 +106,6 @@ export default {
             },
           ],
         },
-        {
-          icon: "el-icon-lx-warn",
-          index: "7",
-          title: "错误处理",
-          subs: [
-            {
-              index: "404",
-              title: "404页面",
-            },
-          ],
-        },
       ],
     };
   },
@@ -146,22 +124,34 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .sidebar {
   height: 100%;
-  overflow-y: scroll;
   width: 100%;
+  .logo{
+    height: 60px;
+    background: #409eff;
+    display: flex;
+    line-height: 60px;
+    img{
+      display: block;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin: 10px 15px;
+    }
+    span{
+      display: block;
+      color: #fff;
+      font-size: 20px;
+    }
+  }
 }
-.sidebar::-webkit-scrollbar {
+.sidebar > ul::-webkit-scrollbar {
   width: 0;
 }
-/* .sidebar-el-menu:not(.el-menu--collapse) {
-  width: 250px;
-} */
-::v-deep .el-menu-item{
-  color:#333;
-}
 .sidebar > ul {
-  height: 100%;
+  height: calc(100vh - 60px);
+  overflow-y: scroll;
 }
 </style>

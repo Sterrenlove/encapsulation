@@ -3,9 +3,9 @@
     <div class="contentLeft">
       <v-sidebar></v-sidebar>
     </div>
-    <div class="contentRight">
+    <div class="contentRight" :class="{ 'content-collapse': collapse }">
       <v-head></v-head>
-      <div class="content-box" :class="{ 'content-collapse': collapse }">
+      <div class="content-box">
         <v-tags></v-tags>
         <div class="content">
           <transition name="move" mode="out-in">
@@ -13,7 +13,7 @@
               <router-view></router-view>
             </keep-alive>
           </transition>
-          <el-backtop target=".content"></el-backtop>
+          <!-- <el-backtop target=".content"></el-backtop> -->
         </div>
       </div>
     </div>
@@ -54,15 +54,31 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.wrapper{
+.wrapper {
   display: flex;
   justify-content: space-between;
-  .contentLeft{
+  height: 100%;
+  position: relative;
+  .contentLeft {
     width: 300px;
     height: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+    border-right: 1px solid #eee;
   }
-  .contentRight{
-    flex: 1;
+  .contentRight {
+    position: absolute;
+    left: 300px;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    -webkit-transition: left .3s ease-in-out;
+    transition: left .3s ease-in-out;
+    background: #f0f0f0;
+  }
+  .content-collapse {
+    left: 70px;
   }
 }
 </style>

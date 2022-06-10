@@ -1,12 +1,5 @@
 <template>
   <div>
-    <div class="crumbs">
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item>
-          <i class="el-icon-lx-cascades"></i> 基础表格
-        </el-breadcrumb-item>
-      </el-breadcrumb>
-    </div>
     <div class="container">
       <div class="handle-box">
         <el-button
@@ -142,7 +135,16 @@ export default {
         pageIndex: 1,
         pageSize: 10,
       },
-      tableData: [],
+      tableData: [
+        {
+          name:1,
+          money:10
+        },
+        {
+          name:2,
+          money:10
+        }
+      ],
       multipleSelection: [],
       delList: [],
       editVisible: false,
@@ -153,7 +155,7 @@ export default {
     };
   },
   created() {
-    this.getData();
+    // this.getData();
   },
   methods: {
     // 获取 easy-mock 的模拟数据
@@ -184,6 +186,7 @@ export default {
     // 多选操作
     handleSelectionChange(val) {
       this.multipleSelection = val;
+      console.log(val)
     },
     delAllSelection() {
       const length = this.multipleSelection.length;

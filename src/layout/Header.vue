@@ -5,7 +5,8 @@
       <i v-if="!collapse" class="el-icon-s-fold"></i>
       <i v-else class="el-icon-s-unfold"></i>
     </div>
-    <div class="logo">后台管理系统模板</div>
+    <breadcrumb></breadcrumb>
+    <!-- <div class="logo">后台管理系统模板</div> -->
     <div class="header-right">
       <div class="header-user-con">
         <!-- 全屏显示 -->
@@ -58,8 +59,10 @@
   </div>
 </template>
 <script>
+import breadcrumb from "./Breadcrumb.vue"
 import bus from "@/components/common/bus";
 export default {
+  components:{ breadcrumb },
   data() {
     return {
       collapse: false,
@@ -122,7 +125,7 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style scoped lang="scss">
 .header {
   position: relative;
   box-sizing: border-box;
@@ -131,45 +134,40 @@ export default {
   line-height: 60px;
   font-size: 22px;
   color: #fff;
+  background: #409eff;
+  overflow: hidden;
 }
 .collapse-btn {
   float: left;
   padding: 0 21px;
   cursor: pointer;
-  line-height: 70px;
 }
 .header .logo {
   float: left;
-  width: 250px;
-  line-height: 70px;
 }
 .header-right {
   float: right;
-  padding-right: 50px;
+  padding-right: 30px;
 }
 .header-user-con {
   display: flex;
-  height: 70px;
-  align-items: center;
+  height: 100%;
+  /* align-items: center; */
 }
 .btn-fullscreen {
   transform: rotate(45deg);
-  margin-right: 5px;
   font-size: 24px;
 }
 .btn-bell,
 .btn-fullscreen {
   position: relative;
-  width: 30px;
-  height: 30px;
-  text-align: center;
-  border-radius: 15px;
   cursor: pointer;
+  margin-right: 15px;
 }
 .btn-bell-badge {
   position: absolute;
-  right: 0;
-  top: -2px;
+  right: -4px;
+  top: 12px;
   width: 8px;
   height: 8px;
   border-radius: 4px;
@@ -189,6 +187,7 @@ export default {
   display: block;
   width: 40px;
   height: 40px;
+  padding-top: 10px;
   border-radius: 50%;
 }
 .el-dropdown-link {

@@ -17,7 +17,7 @@ const routes = [
   {
     path: '/',
     component: () => import( '../layout/Home.vue'),
-    meta: { title: '自述文件' },
+    meta: { title: '后台管理系统' },
     children: [
       {
         path: '/dashboard',

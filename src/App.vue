@@ -15,7 +15,11 @@
   overflow: hidden;
   box-sizing: border-box;
 }
-.app_contaner{
+.app-container{
   height: 100%;
+  background: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  box-sizing: border-box;
 }
 </style>

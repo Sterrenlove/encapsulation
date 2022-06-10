@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <el-row :gutter="20">
-      <el-col :span="8">
-        <el-card shadow="hover" class="mgb20" style="height: 252px">
+  <div style="height: 100%">
+    <el-row :gutter="20" class="rowBox">
+      <el-col :span="8" class="colBox">
+        <el-card shadow="hover" style="height: 49%; margin-bottom: 2%">
           <div class="user-info">
             <img src="../../assets/images/logo.png" class="user-avator" alt />
             <div class="user-info-cont">
@@ -12,28 +12,27 @@
           </div>
           <div class="user-info-list">
             上次登录时间：
-            <span>2019-11-01</span>
+            <span>2022-6-8</span>
           </div>
           <div class="user-info-list">
             上次登录地点：
-            <span>东莞</span>
+            <span>陕西西安</span>
           </div>
         </el-card>
-        <el-card shadow="hover" style="height: 252px">
+        <el-card shadow="hover" style="height: 49%">
           <div slot="header" class="clearfix">
             <span>语言详情</span>
           </div>
-          Vue
-          <el-progress :percentage="71.3" color="#42b983"></el-progress
-          >JavaScript
-          <el-progress :percentage="24.1" color="#f1e05a"></el-progress>CSS
-          <el-progress :percentage="13.7"></el-progress>HTML
-          <el-progress :percentage="5.9" color="#f56c6c"></el-progress>
+
+          <el-progress :percentage="71.3" :text-inside="true" color="#42b983" :format="setText('Vue','71.3%')" :stroke-width="15" ></el-progress>
+          <el-progress :percentage="24.1" color="#f1e05a" :text-inside="true" :format="setText('JavaScript','24.1%')" :stroke-width="15"></el-progress>
+          <el-progress :percentage="13.7" :text-inside="true" :format="setText('CSS','13.7%')" :stroke-width="15"></el-progress>
+          <el-progress :percentage="5.9" :text-inside="true" color="#f56c6c" :format="setText('HTML','5.9%')" :stroke-width="15"></el-progress>
         </el-card>
       </el-col>
-      <el-col :span="16">
-        <el-row :gutter="20" class="mgb20">
-          <el-col :span="8">
+      <el-col :span="16" class="colBox">
+        <el-row :gutter="20" style="height: 25%; margin-bottom: 1%">
+          <el-col :span="8" style="height: 100%">
             <el-card shadow="hover" :body-style="{ padding: '0px' }">
               <div class="grid-content grid-con-1">
                 <i class="el-icon-lx-people grid-con-icon"></i>
@@ -44,7 +43,7 @@
               </div>
             </el-card>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="8" style="height: 100%">
             <el-card shadow="hover" :body-style="{ padding: '0px' }">
               <div class="grid-content grid-con-2">
                 <i class="el-icon-lx-notice grid-con-icon"></i>
@@ -55,7 +54,7 @@
               </div>
             </el-card>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="8" style="height: 100%">
             <el-card shadow="hover" :body-style="{ padding: '0px' }">
               <div class="grid-content grid-con-3">
                 <i class="el-icon-lx-goods grid-con-icon"></i>
@@ -67,14 +66,14 @@
             </el-card>
           </el-col>
         </el-row>
-        <el-card shadow="hover" style="height: 403px">
+        <el-card shadow="hover" style="height: 74%">
           <div slot="header" class="clearfix">
             <span>待办事项</span>
             <el-button style="float: right; padding: 3px 0" type="text"
               >添加</el-button
             >
           </div>
-          <el-table :show-header="false" :data="todoList" style="width: 100%">
+          <el-table :show-header="false" :data="todoList" style="width: 100%" :max-height="200">
             <el-table-column width="40">
               <template slot-scope="scope">
                 <el-checkbox v-model="scope.row.status"></el-checkbox>
@@ -100,9 +99,9 @@
         </el-card>
       </el-col>
     </el-row>
-    <el-row :gutter="20">
-      <el-col :span="12">
-        <el-card shadow="hover">
+    <el-row :gutter="20" class="rowBox">
+      <el-col :span="12" style="height:100%">
+        <el-card shadow="hover" style="height:100%">
           <schart
             ref="bar"
             class="schart"
@@ -111,8 +110,8 @@
           ></schart>
         </el-card>
       </el-col>
-      <el-col :span="12">
-        <el-card shadow="hover">
+      <el-col :span="12" style="height:100%">
+        <el-card shadow="hover" style="height:100%">
           <schart
             ref="line"
             class="schart"
@@ -127,7 +126,6 @@
 
 <script>
 import Schart from "vue-schart";
-import bus from "@/components/common/bus";
 export default {
   name: "home",
   data() {
@@ -157,36 +155,6 @@ export default {
         {
           title: "今天要写100行代码加几个bug吧",
           status: true,
-        },
-      ],
-      data: [
-        {
-          name: "2018/09/04",
-          value: 1083,
-        },
-        {
-          name: "2018/09/05",
-          value: 941,
-        },
-        {
-          name: "2018/09/06",
-          value: 1139,
-        },
-        {
-          name: "2018/09/07",
-          value: 816,
-        },
-        {
-          name: "2018/09/08",
-          value: 327,
-        },
-        {
-          name: "2018/09/09",
-          value: 228,
-        },
-        {
-          name: "2018/09/10",
-          value: 1065,
         },
       ],
       options: {
@@ -242,55 +210,35 @@ export default {
       return this.name === "admin" ? "超级管理员" : "普通用户";
     },
   },
-  // created() {
-  //     this.handleListener();
-  //     this.changeDate();
-  // },
-  // activated() {
-  //     this.handleListener();
-  // },
-  // deactivated() {
-  //     window.removeEventListener('resize', this.renderChart);
-  //     bus.$off('collapse', this.handleBus);
-  // },
   methods: {
-    changeDate() {
-      const now = new Date().getTime();
-      this.data.forEach((item, index) => {
-        const date = new Date(now - (6 - index) * 86400000);
-        item.name = `${date.getFullYear()}/${
-          date.getMonth() + 1
-        }/${date.getDate()}`;
-      });
+    setText(item,pre) {
+      return () => {
+        return `${item}： ${pre}`;
+      };
     },
-    // handleListener() {
-    //     bus.$on('collapse', this.handleBus);
-    //     // 调用renderChart方法对图表进行重新渲染
-    //     window.addEventListener('resize', this.renderChart);
-    // },
-    // handleBus(msg) {
-    //     setTimeout(() => {
-    //         this.renderChart();
-    //     }, 200);
-    // },
-    // renderChart() {
-    //     this.$refs.bar.renderChart();
-    //     this.$refs.line.renderChart();
-    // }
   },
 };
 </script>
 
 
-<style scoped>
-.el-row {
-  margin-bottom: 20px;
+<style scoped lang="scss">
+.el-progress{
+  margin-bottom: 10px;
+}
+.rowBox {
+  /* margin-bottom: 20px; */
+  height: 49%;
+  margin-bottom: 1%;
+  overflow: hidden;
+  .colBox {
+    height: 100%;
+  }
 }
 
 .grid-content {
   display: flex;
   align-items: center;
-  height: 100px;
+  height: 100%;
 }
 
 .grid-cont-right {
@@ -341,14 +289,14 @@ export default {
 .user-info {
   display: flex;
   align-items: center;
-  padding-bottom: 20px;
+  padding-bottom: 15px;
   border-bottom: 2px solid #ccc;
   margin-bottom: 20px;
 }
 
 .user-avator {
-  width: 120px;
-  height: 120px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
 }
 
@@ -371,7 +319,7 @@ export default {
 }
 
 .user-info-list span {
-  margin-left: 70px;
+  margin-left: 60px;
 }
 
 .mgb20 {
@@ -389,6 +337,6 @@ export default {
 
 .schart {
   width: 100%;
-  height: 300px;
+  height: 400px;
 }
 </style>

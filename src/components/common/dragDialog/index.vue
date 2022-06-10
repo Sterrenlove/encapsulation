@@ -1,13 +1,5 @@
 <template>
-  <section class="main">
-    <div class="crumbs">
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item
-          ><i class="el-icon-rank"></i> 拖拽组件</el-breadcrumb-item
-        >
-        <el-breadcrumb-item>拖拽弹框</el-breadcrumb-item>
-      </el-breadcrumb>
-    </div>
+  <div class="app-container">
     <div class="container">
       <p>通过指令 v-dialogDrag 使 Dialog 对话框具有可拖拽的功能。</p>
       <br />
@@ -26,7 +18,7 @@
         <el-button type="primary" @click="visible = false">确 定</el-button>
       </span>
     </el-dialog>
-  </section>
+  </div>
 </template>
 
 <script>
