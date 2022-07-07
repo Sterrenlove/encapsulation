@@ -123,6 +123,7 @@ export default {
 .app_contaner {
   background: url("../../assets/images/bg.png") no-repeat center;
   position: relative;
+  height: 100%;
   .mask {
     width: 100%;
     height: 100%;

@@ -77,7 +77,7 @@ export default {
           title: "表单",
           subs: [
             {
-              index: "form",
+              index: "publicForm",
               title: "基本表单",
             },
             {
@@ -105,6 +105,11 @@ export default {
               title: "拖拽弹框",
             },
           ],
+        },
+        {
+          icon: "el-icon-rank",
+          index: "excel",
+          title: "在线协同excel",
         },
       ],
     };

@@ -25,9 +25,21 @@ const routes = [
         meta: { title: '首页' }
       },
       {
+        // excel组件
+        path: '/excel',
+        component: () => import('../components/common/excel'),
+        meta: { title: '在线协同excel' }
+      },
+      {
         path: '/table',
-        component: () => import('../views/baseTable'),
+        component: () => import('../views/publicTable'),
         meta: { title: '基础表格' }
+      },
+      {
+        // 表单
+        path: '/publicForm',
+        component: () => import('../views/publicForm'),
+        meta: { title: '基础表单' }
       },
       {
         // 富文本编辑器组件
