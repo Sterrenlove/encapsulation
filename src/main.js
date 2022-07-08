@@ -11,10 +11,7 @@ import "@/assets/iconfont/iconfont.css";
 import './assets/css/icon.css';
 import './components/common/directives';
 import 'babel-polyfill';
-import LuckyExcel from 'luckyexcel'
-
 Vue.config.productionTip = false;
-Vue.use(LuckyExcel)
 Vue.use(VueI18n);
 Vue.use(ElementUI, {
     size: 'small'
