@@ -31,6 +31,12 @@ const routes = [
         meta: { title: '在线协同excel' }
       },
       {
+        // 版本对比
+        path: '/compare',
+        component: () => import('../views/compare'),
+        meta: { title: '版本对比' }
+      },
+      {
         path: '/table',
         component: () => import('../views/publicTable'),
         meta: { title: '基础表格' }
