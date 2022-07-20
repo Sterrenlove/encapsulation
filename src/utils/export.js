@@ -20,8 +20,10 @@ const exportExcel = function(luckysheet, value) {
         // 3.设置单元格合并,设置单元格边框,设置单元格样式,设置值
         setStyleAndValue(table.data, worksheet);
         setMerge(merge, worksheet);
-        setImages(table.images, worksheet, workbook);
         setBorder(borderInfo, worksheet);
+        // 图片
+        setImages(table, worksheet, workbook);
+
         return true;
     });
 
@@ -51,39 +53,6 @@ var setMerge = function(luckyMerge = {}, worksheet) {
         );
     });
 };
-function setImages(imageInfo, worksheet, workbook, luckysheet) {
-  if (imageInfo) {
-    // 通过 base64  将图像添加到工作簿
-    Object.keys(imageInfo).forEach(key => {
-      const image = imageInfo[key];
-      const myBase64Image = image.src;
-      const imageId2 = workbook.addImage({
-        base64: myBase64Image,
-        extension: 'png',
-      });
-      const imageWidth = image.originWidth;
-      const imageheight = image.originHeight;
-      worksheet.addImage(imageId2, {
-        tl: { col: image.fromCol, row: image.fromRow },
-        ext: { width: imageWidth, height: imageheight },
-      });
-
-      // 根据图片的宽高,设置单元格的宽高
-      const columnid = image.fromCol + 1;
-      const rowid = image.fromRow + 1;
-      const width = luckysheet.getColumnWidth([columnid])[columnid];
-      const height = luckysheet.getRowHeight([rowid])[rowid];
-      if (imageWidth > width) {
-        const dobCol = worksheet.getColumn(columnid);
-        dobCol.width = imageWidth / 8;
-      }
-      if (imageheight > height) {
-        const dbrow = worksheet.getRow(rowid);
-        dbrow.height = imageheight / 1.5;
-      }
-    });
-  }
-}
 
 var setBorder = function(luckyBorderInfo, worksheet) {
     if (!Array.isArray(luckyBorderInfo)) { return; }
@@ -377,6 +346,74 @@ function createCellPos(n) {
     }
     return s;
 }
+
+//获取图片在单元格的位置
+function  getImagePosition(num,arr){
+  let index = 0;
+  let minIndex;
+  let maxIndex;
+  for (let i = 0; i < arr.length; i++) {
+    if (num < arr[i]) {
+        index = i;
+        break;
+    }
+  }
+ 
+  if(index==0){
+    minIndex = 0;
+    maxIndex = 1;
+  }
+  else if(index == arr.length-1){
+    minIndex = arr.length-2;
+    maxIndex = arr.length-1;
+  }
+  else{
+    minIndex = index-1;
+    maxIndex = index;
+  }
+  let min = arr[minIndex];
+  let max = arr[maxIndex];
+  let radio = Math.abs((num-min)/(max-min))+index
+  return radio;
+}
+
+function setImages (table, worksheet, workbook) {
+    let {
+      images,
+      visibledatacolumn,//所有行的位置
+      visibledatarow //所有列的位置
+    } = {...table}
+    if (typeof images != 'object') return;
+    for (let key in images) {
+    // 通过 base64  将图像添加到工作簿
+        const myBase64Image = images[key].src;
+        //开始行 开始列 结束行 结束列
+        const item = images[key];
+        const imageId = workbook.addImage({
+            base64: myBase64Image,
+            extension: 'png'
+        });
+ 
+        const col_st = getImagePosition(item.default.left,visibledatacolumn);
+        const row_st = getImagePosition(item.default.top,visibledatarow);
+ 
+        //模式1，图片左侧与luckysheet位置一样，像素比例保持不变，但是，右侧位置可能与原图所在单元格不一致
+        worksheet.addImage(imageId, {
+            tl: { col: col_st, row: row_st},
+            ext: { width: item.default.width, height: item.default.height },
+        });
+        //模式2,图片四个角位置没有变动，但是图片像素比例可能和原图不一样
+        // const w_ed = item.default.left+item.default.width;
+        // const h_ed = item.default.top+item.default.height;
+        // const col_ed = getImagePosition(w_ed,visibledatacolumn);
+        // const row_ed = getImagePosition(h_ed,visibledatarow);
+        // worksheet.addImage(imageId, {
+        //   tl: { col: col_st, row: row_st},
+        //   br: { col: col_ed, row: row_ed},
+        // });
+    }
+};
+
 
 export {
     exportExcel
