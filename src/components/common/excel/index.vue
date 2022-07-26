@@ -1,6 +1,12 @@
 <template>
   <div class="app-container">
-    <el-button type="primary" @click="handleExport">导出</el-button>
+    <div class="button">
+      <el-button type="primary" @click="handleExport">导出</el-button>
+      <el-upload name="file" ref="upload" action="" :limit="1"  :before-upload="beforeUpload">
+        <el-button  size="small" type="primary">导入本地文件</el-button>
+      </el-upload>
+      <el-button type="primary" @click="handleExport">导入后端返回的文件</el-button>
+    </div>
     <div id="luckysheet" class="luckysheet-content"></div>
   </div>
 </template>
@@ -161,6 +167,33 @@ export default {
       // ,[,8,1,this.aaa()]
       // );
     },
+    beforeUpload(file){
+      // let suffix = this.getSuffix(file.name)
+      // if(suffix !== 'xlsx'){
+      //   this.$message.error("文件格式只能是.xlsx")
+      //   return false
+      // }
+      luckysheet.destroy() //先销毁当前容器
+      LuckyExcel.transformExcelToLucky(file,function(exportJson){
+        console.log(exportJson)
+        if(exportJson.sheets == null || exportJson.sheets.length == 0){
+          this.$message.warning("读取excel文件内容失败，目前不支持xls文件")
+          return
+        }
+        luckysheet.create({
+          container:'luckysheet',
+          showtoolbar: true, // 是否显示工具栏
+          showinfobar: true, // 是否显示顶部信息栏
+          showsheetbar: true, // 是否显示底部sheet按钮
+          data:exportJson.sheets,
+          title:exportJson.info.name,
+          userInfo:exportJson.info.name.creator
+        })
+      })
+    },
+    // 导入
+
+    // 导出
     handleExport() {
       console.log(luckysheet.getAllSheets());
       exportExcel(window.luckysheet.getAllSheets(), "测试excel")
@@ -168,9 +201,16 @@ export default {
   },
 };
 </script>
-<style lang="css" scoped>
+<style lang="scss" scoped>
 .luckysheet-content {
   width: 100%;
   height: calc(100% - 40px);
+}
+.button{
+  display: flex;
+  margin-bottom: 20px;
+  .el-button{
+    margin-right: 20px;
+  }
 }
 </style>
