@@ -111,6 +111,11 @@ export default {
           index: "excel",
           title: "在线协同excel",
         },
+        // {
+        //   icon: "el-icon-rank",
+        //   index: "table",
+        //   title: "表格",
+        // },
         {
           icon: "el-icon-rank",
           index: "compare",

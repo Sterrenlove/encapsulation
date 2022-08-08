@@ -2,9 +2,7 @@
   <div class="app-container">
     <nx-form ref="searchForm" :source="searchForm" :config="searchConfig">
       <div slot="search">
-        <el-button type="primary" @click="search()"
-          >查询</el-button
-        >
+        <el-button type="primary" @click="search()">查询</el-button>
         <el-button @click="resetSearchForm()">重置</el-button>
         <el-button @click="addForm">新增</el-button>
       </div>

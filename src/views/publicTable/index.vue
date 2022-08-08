@@ -11,13 +11,15 @@
       :search-handle="searchHandle"
     ></searchForm>
     <tableForm
-      :tableData="tableData"
       :columObj="columObj"
-      :isPagination="isPagination"
       :pageObj="pageObj"
       @handleSizeChange="handleSizeChange"
       @handleCurrentChange="handleCurrentChange"
     >
+      <template  v-slot:operation="scopeVal">
+        <el-button type="primary" @click="edit(scopeVal.scope.row)">编辑</el-button>
+        <el-button type="danger" @click="del(scopeVal.scope.row)">删除</el-button>
+      </template>
     </tableForm>
     <popForm :popObj="addPopForm" @confirmPopData ="addModelFormConfirm" @resetPopData="addModelFormCanel">
   
@@ -62,7 +64,6 @@ export default {
         { label: "重置", type: "plain",icon:'el-icon-refresh-right', handle: this.resetForm },
         { label: "查询", type: "primary",icon:'el-icon-search', handle: this.handleSearch },
       ],
-      isPagination: true,
       pageObj: {
         //分页对象
         total: 0,
@@ -71,28 +72,26 @@ export default {
           pageSize: 13,
         },
       },
-      tableData: [],
       columObj: {
         // 选择框
-        loading: false,
-        showIndex: true,
-        selection: false,
-        columnData: [
+        loading: false, //是否加载
+        isSerial: true, //是否需要序列
+        isSelect: false, //是否需要复选框
+        isPagination:true, //是否需要分页
+        isOperation:true,//是否需要操作栏
+        tableData:[], //表格数据来源
+        tableCol: [
           {
             label: "姓名",
             prop: "name",
           },
           {
             label: "所在地区",
-            prop: "",
-            ownDefined: true,
-            ownDefinedReturn: (row, $index) => {
-              return this.areaFilter(row.level1Area);
-            },
+            prop: "area",
           },
           {
             label: "更新时间",
-            prop: "",
+            prop: "updatedTime",
             ownDefined: true,
             ownDefinedReturn: (row, $index) => { 
               if(row.updatedTime == 0){
@@ -101,18 +100,6 @@ export default {
                 return formatTime(row.updatedTime,"yyyy.MM.dd&hh:mm:ss")
               }
             } 
-          },
-          {
-            label: "操作",
-            width: "200",
-            align:"center",
-            operation: [
-              {
-                funName: this.editForm, //功能函数名
-                type: "primary",
-                label: "编辑",
-              },
-            ],
           },
         ],
       },
@@ -137,9 +124,6 @@ export default {
   },
   filter: {},
   methods: {
-    areaFilter(val) {
-      if(val && this.modelTypeOption.length>0) return this.modelTypeOption.filter(item => item.value == val)[0].label
-    },
     // 搜索
     handleSearch() {
       this.pageObj.pageData = {
@@ -150,7 +134,18 @@ export default {
     },
     // 获取数据列表
     getList() {
-
+      this.columObj.tableData=[
+        {
+          name:"张三",
+          area:"陕西西安",
+          updatedTime:0
+        },
+        {
+          name:"李四",
+          area:"甘肃庆阳",
+          updatedTime:0
+        }
+      ]
     },
     // 表单重置
     resetForm() {
@@ -167,24 +162,11 @@ export default {
       this.pageObj.pageNum = 1;
       this.getList();
     },
-    // 添加
-    addAssessReport() {
-      // Object.assign(this.$data.addForm, this.$options.data().addForm);
+    edit(row){
+      console.log(row)
     },
-    // 编辑
-    editForm(row){
-    },
-    // 删除
-    handleDelete(row) {
-    },
-    //取消
-    addModelFormCanel() {
-      // Object.assign(this.$data.addForm, this.$options.data().addForm);
-      // this.addPopForm.dialogVisible = false;
-    },
-    // 确定
-    addModelFormConfirm() {
-    },
+    addModelFormConfirm(){},
+    addModelFormCanel(){}
   },
 };
 </script>
